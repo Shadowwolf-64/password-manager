@@ -3,10 +3,19 @@ import customtkinter as ctk
 from PIL import Image
 from vaultPanel import mainPanel
 
+# temp login creds #
+adminUser = "admin"
+adminPass = "admin"
+
     # Button functions #
-def verifyLogin(current_window):
+def verifyLogin(current_window, entryUsername, entryPassword):
+    username = entryUsername.get()
+    password = entryPassword.get()
+    if username == adminUser and password == adminPass:
         current_window.destroy()
         mainPanel()
+    else:
+        print("error")
 
 def masterPanel():
     ctk.set_appearance_mode("system") # "light" or "system" or "dark"
@@ -53,7 +62,7 @@ def masterPanel():
 
 
     # buttons #
-    button = ctk.CTkButton(inner, text="Login", command=lambda: verifyLogin(app), fg_color="#0066ff", hover_color="#3385ff")
+    button = ctk.CTkButton(inner, text="Login", command=lambda: verifyLogin(app, entryUsername, entryPassword), fg_color="#0066ff", hover_color="#3385ff")
     button.pack(padx=20, pady=20)
 
 
