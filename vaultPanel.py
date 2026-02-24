@@ -41,7 +41,7 @@ def mainPanel():
     entryPassword.pack(pady=(0, 12))
 
     #button
-    button = ctk.CTkButton(inner, text="Add account", command=buttonCallback)
+    button = ctk.CTkButton(inner, text="Add account", command=buttonCallback, fg_color="#0066ff", hover_color="#3385ff")
     button.pack(padx=20, pady=20)
 
     # Left panel
