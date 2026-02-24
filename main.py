@@ -1,5 +1,7 @@
+from masterPanel import masterPanel
+
 def main():
-    print("functioning")
+    masterPanel()
 
 if __name__ == "__main__":
     main()

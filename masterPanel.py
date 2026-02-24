@@ -55,5 +55,4 @@ def masterPanel():
 
     app.mainloop()
 
-masterPanel()
 
