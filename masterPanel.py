@@ -7,7 +7,7 @@ def masterPanel():
     ctk.set_default_color_theme("blue") # or "green", "dark-blue"
 
     app = ctk.CTk() 
-    app.title("Forget me not password manager")
+    app.title("Master Login")
     app.geometry("420x520")
     app.resizable(True, True)
 
