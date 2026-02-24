@@ -7,28 +7,18 @@ def masterPanel():
 
     app = ctk.CTk() 
     app.title("Forget me not password manager")
-<<<<<<< HEAD
     app.geometry("420x420")
     app.resizable(True, True)
 
     # Name of the screen the user is on
     ctk.CTkLabel(app, text="Master Login", anchor="n").pack(pady=(100,4))
 
-=======
-    app.geometry("420x620")
-    app.resizable(True, True)
-
->>>>>>> d09f96c31dd73de971d500de087d3ab57824dd97
     # Container #
     container = ctk.CTkFrame(app, fg_color="transparent")
     container.pack(fill="both", expand=True)
 
     # Panels #
-<<<<<<< HEAD
     panel = ctk.CTkFrame(container, width=400, height=400, corner_radius=8)
-=======
-    panel = ctk.CTkFrame(container, width=400, height=600, corner_radius=8)
->>>>>>> d09f96c31dd73de971d500de087d3ab57824dd97
     panel.pack(expand=True) # This places the panel in true center of the container
 
     # Inner frame centered inside the panel to stack widgets #
@@ -45,9 +35,5 @@ def masterPanel():
 
     app.mainloop()
 
-<<<<<<< HEAD
 masterPanel()
 
-=======
-masterPanel()
->>>>>>> d09f96c31dd73de971d500de087d3ab57824dd97
