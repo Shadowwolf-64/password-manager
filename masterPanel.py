@@ -17,7 +17,22 @@ def verifyLogin(current_window, entryUsername, entryPassword):
     else:
         print("error")
 
+passwordVisible = False
+def togglePassword(entryPassword, toggleButton):
+    global passwordVisible
+    passwordVisible = not passwordVisible
+
+    if passwordVisible:
+        entryPassword.configure(show="")
+        toggleButton.configure(text="Hide")
+    else:
+        entryPassword.configure(show="*")
+        toggleButton.configure(text="Show")
+
+    
+
 def masterPanel():
+
     ctk.set_appearance_mode("system") # "light" or "system" or "dark"
     ctk.set_default_color_theme("blue") # or "green", "dark-blue"
 
@@ -62,9 +77,10 @@ def masterPanel():
 
 
     # buttons #
+    toggleButton = ctk.CTkButton(inner, text="Show", command=lambda: togglePassword(entryPassword, toggleButton), fg_color="#0066ff", hover_color="#3385ff")
+    toggleButton.pack(padx=1, pady=1)
     button = ctk.CTkButton(inner, text="Login", command=lambda: verifyLogin(app, entryUsername, entryPassword), fg_color="#0066ff", hover_color="#3385ff")
     button.pack(padx=20, pady=20)
-
 
     
     
