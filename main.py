@@ -1,5 +1,3 @@
-#main file
-
 def main():
     print("functioning")
 
