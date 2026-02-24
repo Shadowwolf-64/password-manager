@@ -1,5 +1,6 @@
 # This file is for the master login panel of the program
 import customtkinter as ctk
+from PIL import Image
 
 def masterPanel():
     ctk.set_appearance_mode("system") # "light" or "system" or "dark"
@@ -10,6 +11,17 @@ def masterPanel():
     app.geometry("420x420")
     app.resizable(True, True)
 
+    
+
+    # Images #
+    logoImage = ctk.CTkImage(light_image=Image.open('images/logoNoBg.png'), 
+                             dark_image=Image.open('images/logoNoBg.png'),
+                             size=(200, 100))
+
+    logoLabel = ctk.CTkLabel(app, text="", image=logoImage)
+    logoLabel.pack(pady=1)
+
+
     # Name of the screen the user is on
     ctk.CTkLabel(app, text="Master Login", anchor="n").pack(pady=(100,4))
 
@@ -18,6 +30,7 @@ def masterPanel():
     container.pack(fill="both", expand=True)
 
     # Panels #
+    
     panel = ctk.CTkFrame(container, width=400, height=400, corner_radius=8)
     panel.pack(expand=True) # This places the panel in true center of the container
 
@@ -32,6 +45,7 @@ def masterPanel():
     ctk.CTkLabel(inner, text="Password:", anchor="w").pack(pady=(0,4))
     entryPassword = ctk.CTkEntry(inner, width=200, placeholder_text="Password", show="*")
     entryPassword.pack(pady=(0, 12))
+
 
     app.mainloop()
 
