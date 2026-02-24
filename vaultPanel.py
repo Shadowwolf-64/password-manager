@@ -21,12 +21,12 @@ def mainPanel():
     ctk.CTkLabel(app, text="Password Vault", anchor="n").pack(pady=(10,4))
     
     # Right panel
-    panel = ctk.CTkFrame(master=app, width=220, corner_radius=8, fg_color="#2b2b2b") 
-    panel.pack(side="right", fill="y", padx=12, pady=12)
+    panelRight = ctk.CTkFrame(master=app, width=220, corner_radius=8, fg_color="#2b2b2b") 
+    panelRight.pack(side="right", fill="y", padx=12, pady=12)
     
-    ctk.CTkLabel(panel, text="Add new account password", anchor="n").pack(pady=(10,4))
+    ctk.CTkLabel(panelRight, text="Add new account password", anchor="n").pack(pady=(10,4))
     # Inner frame centered inside the panel to stack widgets #
-    inner = ctk.CTkFrame(panel, fg_color="grey") 
+    inner = ctk.CTkFrame(panelRight, fg_color="grey") 
     inner.pack(expand=True) # centers the inner frame vertically/horizontally
     
     # inputs #
@@ -45,9 +45,25 @@ def mainPanel():
     button.pack(padx=20, pady=20)
 
     # Left panel
-    panel = ctk.CTkFrame(master=app, width=420, corner_radius=8, fg_color="#2b2b2b") 
-    panel.pack(side="left", fill="y", padx=12, pady=12)
+    panelLeft = ctk.CTkFrame(master=app, width=420, corner_radius=8, fg_color="#2b2b2b") 
+    panelLeft.pack(side="left", fill="y", padx=12, pady=12)
 
+    #checkboxes
+    def checkbox_event():
+        print("checkbox toggled, current value:", check_var.get())
+
+    check_var = ctk.StringVar(value="off")
+    checkbox = ctk.CTkCheckBox(panelLeft, text="Web URL: https://customtkinter.tomschimansky.com/documentation/widgets/checkbox", command=checkbox_event,
+                                     variable=check_var, onvalue="on", offvalue="off")
+    checkbox.pack(padx=5, pady=5)
+
+    # delete checked boxes button and function
+    def deleteChecked():
+        print("Deleted all checked items")
+
+    #button
+    button = ctk.CTkButton(panelLeft, text="Remove stored password", command=deleteChecked, fg_color="#0066ff", hover_color="#3385ff")
+    button.pack(padx=20, pady=20)
     
     app.mainloop()
 
