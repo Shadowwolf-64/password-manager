@@ -8,35 +8,34 @@ def masterPanel():
 
     app = ctk.CTk() 
     app.title("Forget me not password manager")
-    app.geometry("420x420")
+    app.geometry("420x520")
     app.resizable(True, True)
 
+    # Container #
+    container = ctk.CTkFrame(app, fg_color="transparent")
+    container.pack(fill="both", expand=True)
     
+    # Panels #
+    panel = ctk.CTkFrame(container, width=410, height=510, corner_radius=8, fg_color="transparent")
+    panel.pack(expand=True) # This places the panel in true center of the container
+
+    # Inner frame centered inside the panel to stack widgets #
+    inner = ctk.CTkFrame(panel, fg_color="transparent") 
+    inner.pack(expand=True) # centers the inner frame vertically/horizontally
 
     # Images #
     logoImage = ctk.CTkImage(light_image=Image.open('images/logoNoBg.png'), 
                              dark_image=Image.open('images/logoNoBg.png'),
                              size=(200, 100))
 
-    logoLabel = ctk.CTkLabel(app, text="", image=logoImage)
+    logoLabel = ctk.CTkLabel(inner, text="", image=logoImage)
     logoLabel.pack(pady=1)
 
 
     # Name of the screen the user is on
-    ctk.CTkLabel(app, text="Master Login", anchor="n").pack(pady=(100,4))
+    ctk.CTkLabel(inner, text="Master Login", anchor="n").pack(pady=(100,4))
 
-    # Container #
-    container = ctk.CTkFrame(app, fg_color="transparent")
-    container.pack(fill="both", expand=True)
 
-    # Panels #
-    
-    panel = ctk.CTkFrame(container, width=400, height=400, corner_radius=8)
-    panel.pack(expand=True) # This places the panel in true center of the container
-
-    # Inner frame centered inside the panel to stack widgets #
-    inner = ctk.CTkFrame(panel, fg_color="transparent") 
-    inner.pack(expand=True) # centers the inner frame vertically/horizontally
 
     # inputs #
     ctk.CTkLabel(inner, text="Username:", anchor="w").pack(pady=(0,4))
@@ -46,6 +45,13 @@ def masterPanel():
     entryPassword = ctk.CTkEntry(inner, width=200, placeholder_text="Password", show="*")
     entryPassword.pack(pady=(0, 12))
 
+
+    # Button functions #
+    def verifyLogin():
+        print("login verified")
+    # buttons #
+    button = ctk.CTkButton(inner, text="Login", command=verifyLogin, fg_color="#0066ff", hover_color="#3385ff")
+    button.pack(padx=20, pady=20)
 
     app.mainloop()
 
