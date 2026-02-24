@@ -1,4 +1,5 @@
 import customtkinter as ctk
+from PIL import Image
 
 
 
@@ -15,14 +16,20 @@ def mainPanel():
 
     app = ctk.CTk() 
     app.title("Forget me not password manager") 
-    app.geometry("700x420") 
-
-    # Name of the screen the user is on
-    ctk.CTkLabel(app, text="Password Vault", anchor="n").pack(pady=(10,4))
+    app.geometry("750x520") 
+    app.resizable(True, True)
     
     # Right panel
     panelRight = ctk.CTkFrame(master=app, width=220, corner_radius=8, fg_color="#2b2b2b") 
     panelRight.pack(side="right", fill="y", padx=12, pady=12)
+
+    # Images #
+    logoImage = ctk.CTkImage(light_image=Image.open('images/logoNoBg.png'), 
+                             dark_image=Image.open('images/logoNoBg.png'),
+                             size=(200, 100))
+
+    logoLabel = ctk.CTkLabel(panelRight, text="", image=logoImage)
+    logoLabel.pack(pady=1)
     
     ctk.CTkLabel(panelRight, text="Add new account password", anchor="n").pack(pady=(10,4))
     # Inner frame centered inside the panel to stack widgets #
@@ -47,6 +54,9 @@ def mainPanel():
     # Left panel
     panelLeft = ctk.CTkFrame(master=app, width=420, corner_radius=8, fg_color="#2b2b2b") 
     panelLeft.pack(side="left", fill="y", padx=12, pady=12)
+
+    # Name of the screen the user is on
+    ctk.CTkLabel(panelLeft, text="Password Vault", anchor="nw", font=("Berlin Sans FB", 26)).pack(pady=(10,4))
 
     #checkboxes
     def checkbox_event():
