@@ -1,6 +1,12 @@
 # This file is for the master login panel of the program
 import customtkinter as ctk
 from PIL import Image
+from vaultPanel import mainPanel
+
+    # Button functions #
+def verifyLogin(current_window):
+        current_window.destroy()
+        mainPanel()
 
 def masterPanel():
     ctk.set_appearance_mode("system") # "light" or "system" or "dark"
@@ -46,13 +52,15 @@ def masterPanel():
     entryPassword.pack(pady=(0, 12))
 
 
-    # Button functions #
-    def verifyLogin():
-        print("login verified")
     # buttons #
-    button = ctk.CTkButton(inner, text="Login", command=verifyLogin, fg_color="#0066ff", hover_color="#3385ff")
+    button = ctk.CTkButton(inner, text="Login", command=lambda: verifyLogin(app), fg_color="#0066ff", hover_color="#3385ff")
     button.pack(padx=20, pady=20)
 
+
+    
+    
+    
+    
     app.mainloop()
 
 

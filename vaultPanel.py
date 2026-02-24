@@ -77,4 +77,3 @@ def mainPanel():
     
     app.mainloop()
 
-mainPanel()
