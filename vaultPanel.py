@@ -15,7 +15,7 @@ def mainPanel():
         print("button clicked")
 
     app = ctk.CTk() 
-    app.title("Forget me not password manager") 
+    app.title("Password Vault") 
     app.geometry("750x520") 
     app.resizable(True, True)
     
