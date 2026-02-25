@@ -51,8 +51,8 @@ def mainPanel():
     button = ctk.CTkButton(inner, text="Add account", command=buttonCallback, fg_color="#0066ff", hover_color="#3385ff")
     button.pack(padx=20, pady=20)
 
-    # Left panel
-    panelLeft = ctk.CTkFrame(master=app, width=420, corner_radius=8, fg_color="#2b2b2b") 
+    # Left panel (scrollable)
+    panelLeft = ctk.CTkScrollableFrame(master=app, width=420, corner_radius=8, fg_color="#2b2b2b") 
     panelLeft.pack(side="left", fill="y", padx=12, pady=12)
 
     # Name of the screen the user is on
