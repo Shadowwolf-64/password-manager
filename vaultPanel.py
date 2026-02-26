@@ -39,16 +39,28 @@ def mainPanel():
     
     def onPasswordChange(*args):
         pw = passwordVar.get()
-        score = passwordStrength(pw)
 
+        if pw == "": # Does not work but is an attempt to make placeholder text work with the strength checker logic.
+            progressBar.set(0)
+            progressBar.configure(progress_color="red")
+            progressLabel.configure(text="") 
+            return
+        
+        score = passwordStrength(pw)
         progressBar.set(score / 100)
 
         if score < 40: 
-            progressBar.configure(progress_color="red") 
+            progressBar.configure(progress_color="red")
+            progressLabel.configure(text="Password strength: Weak")
+
         elif score < 70: 
             progressBar.configure(progress_color="orange") 
+            progressLabel.configure(text="Password strength: Medium")
         else:
             progressBar.configure(progress_color="green")
+            progressLabel.configure(text="Password strength: Strong")
+    
+    
     
     # Right panel
     panelRight = ctk.CTkFrame(master=app, width=220, corner_radius=8, fg_color="#2b2b2b") 
@@ -83,6 +95,10 @@ def mainPanel():
     progressBar = ctk.CTkProgressBar(inner, width=200)
     progressBar.pack()
     progressBar.set(0)
+
+    # proggessbar label
+    progressLabel = ctk.CTkLabel(inner, text="")
+    progressLabel.pack()
 
     #button
     button = ctk.CTkButton(inner, text="Add account", command=buttonCallback, fg_color="#0066ff", hover_color="#3385ff")
