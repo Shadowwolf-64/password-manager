@@ -1,6 +1,17 @@
 import customtkinter as ctk
 from PIL import Image
 
+class Account:
+    def __init__(self, website, username, password):
+        self.website = website
+        self.username = username
+        self.password = password
+    def __str__(self):
+        return f"URL: {self.website} | Username: {self.username} | Password: {self.password}"
+
+
+
+accounts = []
 def accountsPanel():
     ctk.set_appearance_mode("system") # "light" or "system" or "dark"
     ctk.set_default_color_theme("blue") # or "green", "dark-blue"
@@ -49,5 +60,3 @@ def accountsPanel():
     password.pack(pady=(15,10))
 
     app.mainloop()
-
-accountsPanel()
