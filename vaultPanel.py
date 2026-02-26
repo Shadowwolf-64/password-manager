@@ -18,6 +18,49 @@ def mainPanel():
     app.title("Password Vault") 
     app.geometry("750x520") 
     app.resizable(True, True)
+    passwordVar = ctk.StringVar() # variable for checking password strength
+    
+    # Password strength checker
+    def passwordStrength(pw: str) -> int:
+        score = 0 
+        
+        if len(pw) >= 8:
+            score += 25 
+        if any(c.islower() for c in pw):
+            score += 15 
+        if any(c.isupper() for c in pw):
+            score += 15 
+        if any(c.isdigit() for c in pw): 
+            score += 20 
+        if any(not c.isalnum() for c in pw): 
+            score += 25 
+        
+        return min(score, 100) 
+    
+    def onPasswordChange(*args):
+        pw = passwordVar.get()
+
+        if pw == "": # Does not work but is an attempt to make placeholder text work with the strength checker logic.
+            progressBar.set(0)
+            progressBar.configure(progress_color="red")
+            progressLabel.configure(text="") 
+            return
+        
+        score = passwordStrength(pw)
+        progressBar.set(score / 100)
+
+        if score < 40: 
+            progressBar.configure(progress_color="red")
+            progressLabel.configure(text="Password strength: Weak")
+
+        elif score < 70: 
+            progressBar.configure(progress_color="orange") 
+            progressLabel.configure(text="Password strength: Medium")
+        else:
+            progressBar.configure(progress_color="green")
+            progressLabel.configure(text="Password strength: Strong")
+    
+    
     
     # Right panel
     panelRight = ctk.CTkFrame(master=app, width=220, corner_radius=8, fg_color="#2b2b2b") 
@@ -44,8 +87,18 @@ def mainPanel():
     entryUsername = ctk.CTkEntry(inner, width=200, placeholder_text="Username")
     entryUsername.pack(pady=(0, 10))
     ctk.CTkLabel(inner, text="Password:", anchor="w").pack(pady=(0,4))
-    entryPassword = ctk.CTkEntry(inner, width=200, placeholder_text="Password", show="*")
-    entryPassword.pack(pady=(0, 12))
+    entryPassword = ctk.CTkEntry(inner, textvariable= passwordVar, width=200, placeholder_text="Password", show="*")
+    entryPassword.pack(pady=(0, 0))
+    
+    # Password gui progressbar
+    passwordVar.trace_add("write", onPasswordChange)
+    progressBar = ctk.CTkProgressBar(inner, width=200)
+    progressBar.pack()
+    progressBar.set(0)
+
+    # proggessbar label
+    progressLabel = ctk.CTkLabel(inner, text="")
+    progressLabel.pack()
 
     #button
     button = ctk.CTkButton(inner, text="Add account", command=buttonCallback, fg_color="#0066ff", hover_color="#3385ff")
@@ -66,6 +119,12 @@ def mainPanel():
     checkbox = ctk.CTkCheckBox(panelLeft, text="Web URL: https://customtkinter.tomschimansky.com/documentation/widgets/checkbox", command=checkbox_event,
                                      variable=check_var, onvalue="on", offvalue="off")
     checkbox.pack(padx=5, pady=5)
+
+
+
+
+        
+
 
     # delete checked boxes button and function
     def deleteChecked():
