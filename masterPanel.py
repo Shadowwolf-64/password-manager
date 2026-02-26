@@ -8,14 +8,17 @@ adminUser = "admin"
 adminPass = "admin"
 
     # Button functions #
-def verifyLogin(current_window, entryUsername, entryPassword):
+def verifyLogin(current_window, entryUsername, entryPassword, feedbackLabel):
     username = entryUsername.get()
     password = entryPassword.get()
     if username == adminUser and password == adminPass:
         current_window.destroy()
         mainPanel()
     else:
-        print("error")
+        feedbackLabel.configure(text="Incorrect Username or Password.\n Try Again!")
+        
+        # Clears the feedback label after 5 seconds 
+        feedbackLabel.after(5000, lambda: feedbackLabel.configure(text=""))
 
 passwordVisible = False
 def togglePassword(entryPassword, toggleButton):
@@ -24,10 +27,10 @@ def togglePassword(entryPassword, toggleButton):
 
     if passwordVisible:
         entryPassword.configure(show="")
-        toggleButton.configure(text="Hide")
+        toggleButton.configure(text="Hide Password")
     else:
         entryPassword.configure(show="*")
-        toggleButton.configure(text="Show")
+        toggleButton.configure(text="Show Password")
 
     
 
@@ -63,7 +66,8 @@ def masterPanel():
 
 
     # Name of the screen the user is on
-    ctk.CTkLabel(inner, text="Master Login", anchor="n").pack(pady=(100,4))
+    feedbackLabel = ctk.CTkLabel(inner, text="", anchor="n")
+    feedbackLabel.pack(pady=(100,4))
 
 
 
@@ -79,7 +83,7 @@ def masterPanel():
     # buttons #
     toggleButton = ctk.CTkButton(inner, text="Show", command=lambda: togglePassword(entryPassword, toggleButton), fg_color="#0066ff", hover_color="#3385ff")
     toggleButton.pack(padx=1, pady=1)
-    button = ctk.CTkButton(inner, text="Login", command=lambda: verifyLogin(app, entryUsername, entryPassword), fg_color="#0066ff", hover_color="#3385ff")
+    button = ctk.CTkButton(inner, text="Login", command=lambda: verifyLogin(app, entryUsername, entryPassword, feedbackLabel), fg_color="#0066ff", hover_color="#3385ff")
     button.pack(padx=20, pady=20)
 
     

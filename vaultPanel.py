@@ -1,5 +1,7 @@
 import customtkinter as ctk
 from PIL import Image
+import random
+import string
 
 
 
@@ -61,7 +63,16 @@ def mainPanel():
             progressLabel.configure(text="Password strength: Strong")
     
     
-    
+    def passwordGenerator(length=20):
+        chars = string.ascii_letters + string.digits + string.punctuation 
+        pw = "".join(random.choice(chars) for _ in range(length))
+
+        entryPassword.delete(0, "end") 
+        entryPassword.insert(0, pw) 
+        # Update the StringVar so your strength bar updates 
+        passwordVar.set(pw)
+
+
     # Right panel
     panelRight = ctk.CTkFrame(master=app, width=220, corner_radius=8, fg_color="#2b2b2b") 
     panelRight.pack(side="right", fill="y", padx=12, pady=12)
@@ -101,9 +112,10 @@ def mainPanel():
     progressLabel.pack()
 
     #button
+    genButton = ctk.CTkButton(inner, text="Generate Random Password",command=passwordGenerator , fg_color="#0066ff", hover_color="#3385ff")
+    genButton.pack()
     button = ctk.CTkButton(inner, text="Add account", command=buttonCallback, fg_color="#0066ff", hover_color="#3385ff")
     button.pack(padx=20, pady=20)
-
     # Left panel (scrollable)
     panelLeft = ctk.CTkScrollableFrame(master=app, width=420, corner_radius=8, fg_color="#2b2b2b") 
     panelLeft.pack(side="left", fill="y", padx=12, pady=12)
