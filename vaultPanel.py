@@ -1,5 +1,6 @@
 import customtkinter as ctk
 from PIL import Image
+from accountsPanel import Account, accounts
 import random
 import string
 
@@ -22,6 +23,20 @@ def mainPanel():
     app.resizable(True, True)
     passwordVar = ctk.StringVar() # variable for checking password strength
     
+     # Add accounts function to collect user input and store it
+    def addAccount():
+        website = entryWebUrl.get()
+        username = entryUsername.get()
+        password = entryPassword.get()
+
+        new_acc = Account(website, username, password) 
+        accounts.append(new_acc)
+        print("new account added")
+        for acc in accounts:
+            print(acc)
+
+
+
     # Password strength checker
     def passwordStrength(pw: str) -> int:
         score = 0 
@@ -114,7 +129,7 @@ def mainPanel():
     #button
     genButton = ctk.CTkButton(inner, text="Generate Random Password",command=passwordGenerator , fg_color="#0066ff", hover_color="#3385ff")
     genButton.pack()
-    button = ctk.CTkButton(inner, text="Add account", command=buttonCallback, fg_color="#0066ff", hover_color="#3385ff")
+    button = ctk.CTkButton(inner, text="Add account", command=addAccount, fg_color="#0066ff", hover_color="#3385ff")
     button.pack(padx=20, pady=20)
     # Left panel (scrollable)
     panelLeft = ctk.CTkScrollableFrame(master=app, width=420, corner_radius=8, fg_color="#2b2b2b") 
