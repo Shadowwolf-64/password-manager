@@ -1,6 +1,6 @@
 import customtkinter as ctk
 from PIL import Image
-from accountsPanel import Account, accounts
+from accountsPanel import Account, accounts, accountsPanel
 import random
 import string
 
@@ -9,6 +9,7 @@ import string
 """
 This file is code for the main panel. (Vault)
 """
+logoImage = None
 class AccountRow():
     def __init__(self, parent, data):
         self.data = data
@@ -22,8 +23,11 @@ class AccountRow():
         self.label.pack(side="left", padx=10)
 
         # creates a button to open account
-        self.button = ctk.CTkButton(self.frame, text="View", command="")
+        self.button = ctk.CTkButton(self.frame, text="View", command=self.viewAccountInfo)
         self.button.pack(side="right", padx=10)
+    
+    def viewAccountInfo(self):
+        accountsPanel()
 
 
 
@@ -111,6 +115,7 @@ def mainPanel():
     panelRight.pack(side="right", fill="y", padx=12, pady=12)
 
     # Images #
+    global logoImage
     logoImage = ctk.CTkImage(light_image=Image.open('images/logoNoBg.png'), 
                              dark_image=Image.open('images/logoNoBg.png'),
                              size=(200, 100))
