@@ -18,7 +18,7 @@ class AccountRow():
         self.frame.pack(fill="x", pady=5)
 
         # creates label ahowing url
-        self.label = ctk.CTkLabel(self.frame, text=data.website)
+        self.label = ctk.CTkLabel(self.frame, text="URL: " + data.website)
         self.label.pack(side="left", padx=10)
 
         # creates a button to open account
@@ -151,11 +151,11 @@ def mainPanel():
     button = ctk.CTkButton(inner, text="Add account", command=addAccount, fg_color="#0066ff", hover_color="#3385ff")
     button.pack(padx=20, pady=20)
     # Left panel (scrollable)
-    panelLeft = ctk.CTkScrollableFrame(master=app, width=420, corner_radius=8, fg_color="#2b2b2b") 
+    panelLeft = ctk.CTkScrollableFrame(master=app, width=420, corner_radius=8, fg_color="#2b2b2b", label_text="Accounts") 
     panelLeft.pack(side="left", fill="y", padx=12, pady=12)
 
     # Name of the screen the user is on
-    ctk.CTkLabel(panelLeft, text="Password Vault", anchor="nw", font=("Berlin Sans FB", 26)).pack(pady=(10,4))
+    #ctk.CTkLabel(panelLeft, text="Password Vault", anchor="nw", font=("Berlin Sans FB", 26)).pack(pady=(10,4))
 
     #checkboxes
     #def checkbox_event():
@@ -177,8 +177,8 @@ def mainPanel():
         print("Deleted all checked items")
 
     #button
-    button = ctk.CTkButton(panelLeft, text="Remove stored password", command=deleteChecked, fg_color="#0066ff", hover_color="#3385ff")
-    button.pack(padx=20, pady=20)
+   # button = ctk.CTkButton(panelLeft, text="Remove stored password", command=deleteChecked, fg_color="#0066ff", hover_color="#3385ff")
+    #button.pack(padx=20, pady=20)
     
     app.mainloop()
 
