@@ -9,6 +9,23 @@ import string
 """
 This file is code for the main panel. (Vault)
 """
+class AccountRow():
+    def __init__(self, parent, data):
+        self.data = data
+
+        # creates frame
+        self.frame = ctk.CTkFrame(parent)
+        self.frame.pack(fill="x", pady=5)
+
+        # creates label ahowing url
+        self.label = ctk.CTkLabel(self.frame, text=data.website)
+        self.label.pack(side="left", padx=10)
+
+        # creates a button to open account
+        self.button = ctk.CTkButton(self.frame, text="View", command="")
+        self.button.pack(side="right", padx=10)
+
+
 
 def mainPanel():
     ctk.set_appearance_mode("system") # "light" or "system" or "dark"
@@ -29,8 +46,9 @@ def mainPanel():
         username = entryUsername.get()
         password = entryPassword.get()
 
-        new_acc = Account(website, username, password) 
-        accounts.append(new_acc)
+        newAcc = Account(website, username, password) 
+        accounts.append(newAcc)
+        AccountRow(panelLeft, newAcc)
         print("new account added")
         for acc in accounts:
             print(acc)
@@ -101,13 +119,14 @@ def mainPanel():
     logoLabel.pack(pady=1)
     
     ctk.CTkLabel(panelRight, text="Add new account password", anchor="n").pack(pady=(10,4))
+
     # Inner frame centered inside the panel to stack widgets #
     inner = ctk.CTkFrame(panelRight, fg_color="grey") 
     inner.pack(expand=True) # centers the inner frame vertically/horizontally
     
     # inputs #
     ctk.CTkLabel(inner, text="Website URL:", anchor="e").pack(pady=(0,4))
-    entryWebUrl = ctk.CTkEntry(inner, width=200, placeholder_text="Website URL", show="*")
+    entryWebUrl = ctk.CTkEntry(inner, width=200, placeholder_text="Website URL")
     entryWebUrl.pack(pady=(0, 12))
     ctk.CTkLabel(inner, text="Username:", anchor="w").pack(pady=(0,4))
     entryUsername = ctk.CTkEntry(inner, width=200, placeholder_text="Username")
@@ -139,13 +158,13 @@ def mainPanel():
     ctk.CTkLabel(panelLeft, text="Password Vault", anchor="nw", font=("Berlin Sans FB", 26)).pack(pady=(10,4))
 
     #checkboxes
-    def checkbox_event():
-        print("checkbox toggled, current value:", check_var.get())
+    #def checkbox_event():
+    #    print("checkbox toggled, current value:", check_var.get())
 
-    check_var = ctk.StringVar(value="off")
-    checkbox = ctk.CTkCheckBox(panelLeft, text="Web URL: https://customtkinter.tomschimansky.com/documentation/widgets/checkbox", command=checkbox_event,
-                                     variable=check_var, onvalue="on", offvalue="off")
-    checkbox.pack(padx=5, pady=5)
+    #check_var = ctk.StringVar(value="off")
+    #checkbox = ctk.CTkCheckBox(panelLeft, text="Web URL: https://customtkinter.tomschimansky.com/documentation/widgets/checkbox", command=checkbox_event,
+    #                                 variable=check_var, onvalue="on", offvalue="off")
+    #checkbox.pack(padx=5, pady=5)
 
 
 
