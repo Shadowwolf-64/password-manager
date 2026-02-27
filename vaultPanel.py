@@ -27,7 +27,7 @@ class AccountRow():
         self.button.pack(side="right", padx=10)
     
     def viewAccountInfo(self):
-        accountsPanel()
+        accountsPanel(self.data)
 
 
 

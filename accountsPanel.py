@@ -12,7 +12,7 @@ class Account:
 
 logoImage = None
 accounts = []
-def accountsPanel():
+def accountsPanel(data):
     ctk.set_appearance_mode("system") # "light" or "system" or "dark"
     ctk.set_default_color_theme("blue") # or "green", "dark-blue"
 
@@ -53,11 +53,11 @@ def accountsPanel():
     panelRight.pack(side="right", fill="x", padx=1, pady=1)
 
     #right panel label
-    #url = ctk.CTkLabel(panelRight, text="http://www.stupid-website.com", anchor="ne")
-    #url.pack(pady=(15,10))
-    #username = ctk.CTkLabel(panelRight, text="Side show bob", anchor="w")
-    #username.pack(pady=(15,10))
-    #password = ctk.CTkLabel(panelRight, text="***********", anchor="w")
-    #password.pack(pady=(15,10))
+    url = ctk.CTkLabel(panelRight, text=data.website, anchor="ne")
+    url.pack(pady=(15,10))
+    username = ctk.CTkLabel(panelRight, text=data.username, anchor="w")
+    username.pack(pady=(15,10))
+    password = ctk.CTkLabel(panelRight, text=data.password, anchor="w")
+    password.pack(pady=(15,10))
 
     app.mainloop()
