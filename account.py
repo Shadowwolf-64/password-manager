@@ -1,13 +1,18 @@
 import customtkinter as ctk
 from PIL import Image
+from databaseManager import DatabaseManager
 
 class Account:
-    def __init__(self, website, username, password):
+    def __init__(self, id, website, username, password):
+        self.db = DatabaseManager()
+        self.id = id
         self.website = website
         self.username = username
         self.password = password
-    def __str__(self):
-        return f"URL: {self.website} | Username: {self.username} | Password: {self.password}"
+    def __repr__(self):
+        return f"Account id={self.id} | URL: {self.website} | Username: {self.username} | Password: {self.password}"
+    
+
 
 
 logoImage = None
