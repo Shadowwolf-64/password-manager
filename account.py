@@ -16,7 +16,7 @@ class Account:
 
 
 logoImage = None
-accounts = []
+
 def accountsPanel(data):
     ctk.set_appearance_mode("system") # "light" or "system" or "dark"
     ctk.set_default_color_theme("blue") # or "green", "dark-blue"

@@ -11,30 +11,35 @@ class DatabaseManager:
         query="""
         CREATE TABLE IF NOT EXISTS accounts (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
-            username TEXT NOT NULL,
-            email TEXT NOT NULL,
-            balance REAL NOT NULL 
+            username VARCHAR NOT NULL,
+            webUrl VARCHAR NOT NULL,
+            password VARCHAR NOT NULL 
         );
         """
         self.conn.execute(query)
         self.conn.commit()
 
     
-    def insert_account(self, username, email, balance):
-        query="INSERT INTO accounts (username, email, balance) VALUES (?, ?, ?)"
-        self.conn.execute(query, (username, email, balance))
+    def insert_account(self, username, webUrl, password):
+        query="INSERT INTO accounts (username, webUrl, password) VALUES (?, ?, ?)"
+        self.conn.execute(query, (username, webUrl, password))
+        self.conn.commit()
+
+    def delete_account_by_id(self, account_id):
+        query="DELETE FROM accounts WHERE id = ?"
+        self.conn.execute(query, (account_id,))
         self.conn.commit()
 
     
     def get_account_by_id(self, account_id):
-        query = "SELECT id, username, email, balance FROM accounts WHERE id = ?"
+        query = "SELECT id, username, webUrl, password FROM accounts WHERE id = ?"
         cursor = self.conn.execute(query, (account_id,))
         row = cursor.fetchone()
         from account import Account
 
         if row:
-            id, username, email, balance = row
-            balance = float(balance)
-            return Account(id, username, email, balance)
+            id, username, webUrl, password = row
+            password = float(password)
+            return Account(id, username, webUrl, password)
         
         return None

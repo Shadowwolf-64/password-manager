@@ -13,7 +13,6 @@ This file is code for the main panel. (Vault)
 logoImage = None
 class AccountRow():
     def __init__(self, parent, data):
-        self.db = DatabaseManager()
         self.data = data
 
         # creates frame
@@ -36,6 +35,7 @@ class AccountRow():
 def mainPanel():
     ctk.set_appearance_mode("system") # "light" or "system" or "dark"
     ctk.set_default_color_theme("blue") # or "green", "dark-blue"
+    db = DatabaseManager()
 
     def buttonCallback():
         print("button clicked")
@@ -48,16 +48,15 @@ def mainPanel():
     
      # Add accounts function to collect user input and store it
     def addAccount():
-        website = entryWebUrl.get()
         username = entryUsername.get()
+        webUrl = entryWebUrl.get()
         password = entryPassword.get()
-
-        newAcc = Account(website, username, password) 
-        accounts.append(newAcc)
-        AccountRow(panelLeft, newAcc)
-        print("new account added")
-        for acc in accounts:
-            print(acc)
+        db.insert_account(username, webUrl, password)
+        
+        # clears entry after proccessing
+        username.delete(0, "end")
+        webUrl.delete(0, "end")
+        #password.delete(0, "end")
 
 
 
