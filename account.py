@@ -1,8 +1,10 @@
 import customtkinter as ctk
 from PIL import Image
+from databaseManager import DatabaseManager
 
 class Account:
     def __init__(self, id, website, username, password):
+        self.db = DatabaseManager()
         self.id = id
         self.website = website
         self.username = username

@@ -1,8 +1,9 @@
 import customtkinter as ctk
 from PIL import Image
-from accountsPanel import Account, accounts, accountsPanel
+from account import Account, accountsPanel
 import random
 import string
+from databaseManager import DatabaseManager
 
 
 
@@ -12,6 +13,7 @@ This file is code for the main panel. (Vault)
 logoImage = None
 class AccountRow():
     def __init__(self, parent, data):
+        self.db = DatabaseManager()
         self.data = data
 
         # creates frame
