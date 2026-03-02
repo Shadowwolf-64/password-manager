@@ -46,17 +46,7 @@ def mainPanel():
     app.resizable(True, True)
     passwordVar = ctk.StringVar() # variable for checking password strength
     
-     # Add accounts function to collect user input and store it
-    def addAccount():
-        username = entryUsername.get()
-        webUrl = entryWebUrl.get()
-        password = entryPassword.get()
-        db.insert_account(username, webUrl, password)
-        
-        # clears entry after proccessing
-        username.delete(0, "end")
-        webUrl.delete(0, "end")
-        #password.delete(0, "end")
+    
 
 
 
@@ -110,7 +100,31 @@ def mainPanel():
         # Update the StringVar so your strength bar updates 
         passwordVar.set(pw)
 
+    def load_accounts_into_ui():
+        for widget in panelLeft.winfo_children():
+            widget.destroy()
 
+        cursor = db.conn.execute("SELECT id, username, webUrl, password FROM accounts")
+
+        for row in cursor:
+            id, username, webUrl, password = row
+            acc = Account(id, username, webUrl, password)
+            AccountRow(panelLeft, acc)
+
+     # Add accounts function to collect user input and store it
+    def addAccount():
+        webUrl = entryWebUrl.get()
+        username = entryUsername.get()
+        password = entryPassword.get()
+        db.insert_account(webUrl, username, password)
+        
+        # clears entry after proccessing
+        entryUsername.delete(0, "end")
+        entryWebUrl.delete(0, "end")
+        #password.delete(0, "end") This is making shit janky so its getting commeted out
+        load_accounts_into_ui()
+
+    
     # Right panel
     panelRight = ctk.CTkFrame(master=app, width=220, corner_radius=8, fg_color="#2b2b2b") 
     panelRight.pack(side="right", fill="y", padx=12, pady=12)
@@ -151,14 +165,19 @@ def mainPanel():
     progressLabel = ctk.CTkLabel(inner, text="")
     progressLabel.pack()
 
+    # Left panel (scrollable)
+    panelLeft = ctk.CTkScrollableFrame(master=app, width=420, corner_radius=8, fg_color="#2b2b2b", label_text="Accounts") 
+    panelLeft.pack(side="left", fill="y", padx=12, pady=12)
+    
     #button
     genButton = ctk.CTkButton(inner, text="Generate Random Password",command=passwordGenerator , fg_color="#0066ff", hover_color="#3385ff")
     genButton.pack()
     button = ctk.CTkButton(inner, text="Add account", command=addAccount, fg_color="#0066ff", hover_color="#3385ff")
     button.pack(padx=20, pady=20)
-    # Left panel (scrollable)
-    panelLeft = ctk.CTkScrollableFrame(master=app, width=420, corner_radius=8, fg_color="#2b2b2b", label_text="Accounts") 
-    panelLeft.pack(side="left", fill="y", padx=12, pady=12)
+
+    load_accounts_into_ui()
+
+
 
     # Name of the screen the user is on
     #ctk.CTkLabel(panelLeft, text="Password Vault", anchor="nw", font=("Berlin Sans FB", 26)).pack(pady=(10,4))
