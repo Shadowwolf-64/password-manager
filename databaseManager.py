@@ -19,7 +19,30 @@ class DatabaseManager:
         self.conn.execute(query)
         self.conn.commit()
 
-    
+    def create_master_table(self):
+        query="""
+        CREATE TABLE IF NOT EXISTS masterLogin (
+        MasterID INTEGER PRIMARY KEY AUTOINCREMENT,
+        MasterUsername VARCHAR NOT NULL,
+        MasterPassword VARCHAR NOT NULL,
+        ContactEmail VARCHAR NOT NULL
+        );
+        """
+        self.conn.execute(query)
+        self.conn.commit()
+
+    def create_vault_table(self):
+        query="""
+        CREATE TABLE IF NOT EXISTS vault (
+        id 
+        VaultId INTEGER PRIMARY KEY AUTOINCREMENT,
+        MasterID INTEGER FOREIGN KEY REFERENCES masterLogin(MasterID),
+        id INTEGER FOREIGN KEY REFERENCES accounts(id)
+        );
+        """
+        self.conn.execute(query)
+        self.conn.commit()
+
     def insert_account(self, username, webUrl, password):
         query="INSERT INTO accounts (username, webUrl, password) VALUES (?, ?, ?)"
         self.conn.execute(query, (username, webUrl, password))
