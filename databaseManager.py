@@ -1,10 +1,12 @@
 import sqlite3
+from cryptoUtilities import encrypt_password, decrypt_password
 
 class DatabaseManager:
     def __init__(self, db_path="accounts.db"):
         self.db_path = db_path
         self.conn = sqlite3.connect(self.db_path)
         self.create_table()
+        self.create_master_table()
 
     
     def create_table(self):
@@ -43,9 +45,15 @@ class DatabaseManager:
         self.conn.execute(query)
         self.conn.commit()
 
-    def insert_account(self, username, webUrl, password):
+    def insert_account(self, username, webUrl, password, MasterPassword):
         query="INSERT INTO accounts (username, webUrl, password) VALUES (?, ?, ?)"
-        self.conn.execute(query, (username, webUrl, password))
+        encryptedPassword = encrypt_password(password, MasterPassword)
+        self.conn.execute(query, (username, webUrl, encryptedPassword))
+        self.conn.commit()
+
+    def insert_master(self, MasterUsername, MasterPassword, ContactEmail):
+        query="INSERT INTO masterLogin (MasterUsername, MasterPassword, ContactEmail) VALUES (?, ?, ?)"
+        self.conn.execute(query, (MasterUsername, MasterPassword, ContactEmail))
         self.conn.commit()
 
     def delete_account_by_id(self, account_id):
@@ -58,11 +66,21 @@ class DatabaseManager:
         query = "SELECT id, username, webUrl, password FROM accounts WHERE id = ?"
         cursor = self.conn.execute(query, (account_id,))
         row = cursor.fetchone()
-        from account import Account
 
+        from account import Account 
         if row:
             id, username, webUrl, password = row
             password = float(password)
             return Account(id, username, webUrl, password)
+        
+        return None
+
+    def get_master_account(self, username, password):
+        query = "SELECT MasterID, Masterusername, MasterPassword FROM masterLogin WHERE MasterUsername = ? AND MasterPassword = ?"
+        cursor = self.conn.execute(query, (username, password,))
+        row = cursor.fetchone()
+        
+        if row:
+            return row
         
         return None
