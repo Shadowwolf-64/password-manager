@@ -46,7 +46,7 @@ class AccountRow():
 
 
 
-def mainPanel():
+def mainPanel(MasterPassword):
     ctk.set_appearance_mode("system") # "light" or "system" or "dark"
     ctk.set_default_color_theme("blue") # or "green", "dark-blue"
     db = DatabaseManager()
@@ -130,7 +130,8 @@ def mainPanel():
         webUrl = entryWebUrl.get()
         username = entryUsername.get()
         password = entryPassword.get()
-        db.insert_account(webUrl, username, password)
+        masterPassword = MasterPassword
+        db.insert_account(webUrl, username, password, masterPassword)
         
         # clears entry after proccessing
         entryUsername.delete(0, "end")

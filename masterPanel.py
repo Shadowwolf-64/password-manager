@@ -2,23 +2,28 @@
 import customtkinter as ctk
 from PIL import Image
 from vaultPanel import mainPanel
+from databaseManager import DatabaseManager
+
+db = DatabaseManager()
+db.insert_master("admin", "admin", "example@gmail.com")
 
 # temp login creds #
-adminUser = "admin"
-adminPass = "admin"
+#masterUser = "admin"
+#masterPass = "admin"
 
     # Button functions #
 def verifyLogin(current_window, entryUsername, entryPassword, feedbackLabel):
-    username = entryUsername.get()
-    password = entryPassword.get()
-    if username == adminUser and password == adminPass:
-        current_window.destroy()
-        mainPanel()
-    else:
-        feedbackLabel.configure(text="Incorrect Username or Password.\n Try Again!")
+    MasterUsername = entryUsername.get()
+    MasterPassword = entryPassword.get()
+    if db.get_master_account(MasterUsername, MasterPassword):
+        if  MasterUsername == MasterUsername and MasterPassword == MasterPassword:
+            current_window.destroy()
+            mainPanel(MasterPassword)
+        else:
+            feedbackLabel.configure(text="Incorrect Username or Password.\n Try Again!")
         
-        # Clears the feedback label after 5 seconds 
-        feedbackLabel.after(5000, lambda: feedbackLabel.configure(text=""))
+            # Clears the feedback label after 5 seconds 
+            feedbackLabel.after(5000, lambda: feedbackLabel.configure(text=""))
 
 passwordVisible = False
 def togglePassword(entryPassword, toggleButton):
