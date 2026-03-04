@@ -14,6 +14,7 @@ logoImage = None
 class AccountRow():
     def __init__(self, parent, data):
         self.data = data
+        self.id = data.id
 
         # creates frame
         self.frame = ctk.CTkFrame(parent)
@@ -25,10 +26,23 @@ class AccountRow():
 
         # creates a button to open account
         self.button = ctk.CTkButton(self.frame, text="View", command=self.viewAccountInfo)
-        self.button.pack(side="right", padx=10)
+        self.button.pack(side="right", padx=5)
+
+        # Creates a delete button
+        self.button = ctk.CTkButton(self.frame, text="Delete", command=self.deleteRow)
+        self.button.pack(side="right", padx=5)
     
     def viewAccountInfo(self):
         accountsPanel(self.data)
+
+    def deleteRow(self):
+        db = DatabaseManager()
+
+        
+        db.delete_account_by_id(self.id)
+        self.frame.destroy()
+
+
 
 
 
