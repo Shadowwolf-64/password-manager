@@ -4,6 +4,7 @@ from account import Account, accountsPanel
 import random
 import string
 from databaseManager import DatabaseManager
+from cryptoUtilities import decrypt_password
 
 
 
@@ -122,7 +123,8 @@ def mainPanel(MasterPassword):
 
         for row in cursor:
             id, username, webUrl, password = row
-            acc = Account(id, username, webUrl, password)
+
+            acc = Account(id, username, webUrl, decrypt_password(password, MasterPassword))
             AccountRow(panelLeft, acc)
 
      # Add accounts function to collect user input and store it
